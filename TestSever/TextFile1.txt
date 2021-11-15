@@ -1,0 +1,68 @@
+﻿todo
+gRPC with HTTP/3
+gRPC is a RPC mechanism using the protobuf serialization format. gRPC typically uses HTTP/2 as its transport. HTTP/3 uses the same semantics, so there is little change required to make it work. gRPC over HTTP/3 is not yet a standard, and is proposed by the .NET team.
+
+The following code is based on the greeter sample, with the hello world proto.
+
+The client and server projects require the same respective preview feature enablement in their projects as the samples further above.
+
+ASP.NET Server
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddGrpc();
+builder.WebHost.ConfigureKestrel((context, options) =>
+{
+  options.Listen(IPAddress.Any, 5001, listenOptions =>
+  {
+    listenOptions.Protocols = HttpProtocols.Http3;
+    listenOptions.UseHttps();
+  });
+});
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+app.UseDeveloperExceptionPage();
+}
+
+app.MapGrpcService<GreeterService>();
+app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+
+app.Run();
+Client
+
+using Grpc.Net.Client;
+using GrpcService1;
+using System.Net;
+
+var httpClient = new HttpClient();
+httpClient.DefaultRequestVersion = HttpVersion.Version30;
+httpClient.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
+
+var channel = GrpcChannel.ForAddress("https://localhost:5001", new GrpcChannelOptions() { HttpClient = httpClient });
+var client = new Greeter.GreeterClient(channel);
+
+var response = await client.SayHelloAsync(
+new HelloRequest { Name = "World" });
+
+Console.WriteLine(response.Message);
+
+todo
+    Provides a very simple MsQuic API sample server and client application.
+    The quicsample app implements a simple protocol (ALPN "sample") where the
+    client connects to the server, opens a single bidirectional stream, sends
+    some data and shuts down the stream in the send direction. On the server
+    side all connections, streams and data are accepted. After the stream is
+    shut down, the server then sends its own data and shuts down its send
+    direction. The connection only shuts down when the 1 second idle timeout
+    triggers.
+    A certificate needs to be available for the server to function.
+    On Windows, the following PowerShell command can be used to generate a self
+    signed certificate with the correct settings. This works for both Schannel
+    and OpenSSL TLS providers, assuming the KeyExportPolicy parameter is set to
+    Exportable. The Thumbprint received from the command is then passed to this
+    sample with -cert_hash:PASTE_THE_THUMBPRINT_HERE
+    New-SelfSignedCertificate -DnsName $env:computername,localhost -FriendlyName MsQuic-Test -KeyUsageProperty Sign -KeyUsage DigitalSignature -CertStoreLocation cert:\CurrentUser\My -HashAlgorithm SHA256 -Provider "Microsoft Software Key Storage Provider" -KeyExportPolicy Exportable
