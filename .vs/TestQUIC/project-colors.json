@@ -1,0 +1,31 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "38b7ba5a-5d89-4536-a29a-d9162bde37d8": {
+      "ProjectGuid": "38b7ba5a-5d89-4536-a29a-d9162bde37d8",
+      "DisplayName": "TestClient",
+      "ColorIndex": 0
+    },
+    "663b8a63-f349-4190-9244-526e27e962e6": {
+      "ProjectGuid": "663b8a63-f349-4190-9244-526e27e962e6",
+      "DisplayName": "TestSeverGRPC",
+      "ColorIndex": 1
+    },
+    "a1b75e65-46a8-4068-b124-ed3f79819896": {
+      "ProjectGuid": "a1b75e65-46a8-4068-b124-ed3f79819896",
+      "DisplayName": "TestServer2",
+      "ColorIndex": 2
+    },
+    "32cd233a-7e15-4de9-ab26-3f542ef59a05": {
+      "ProjectGuid": "32cd233a-7e15-4de9-ab26-3f542ef59a05",
+      "DisplayName": "TestServerMVC",
+      "ColorIndex": 3
+    },
+    "97efc605-888c-4867-b09d-c4270d6aeb14": {
+      "ProjectGuid": "97efc605-888c-4867-b09d-c4270d6aeb14",
+      "DisplayName": "TestAsyncStreams",
+      "ColorIndex": 4
+    }
+  },
+  "NextColorIndex": 5
+}

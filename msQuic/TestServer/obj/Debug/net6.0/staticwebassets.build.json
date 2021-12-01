@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "5h4rSq18cCFYYgw5wE2myNQC8UaNrA0GdGKgWIffEHQ=",
+  "Source": "TestServerMVC",
+  "BasePath": "_content/TestServerMVC",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
