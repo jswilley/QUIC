@@ -3,7 +3,7 @@
 - MsQuic - Test of MsQUIC Http3 implementation.  Note.  The code runs under http2 not http3.  Not sure why.
 - Grpc - Test of Http3 using GRPC.  I took some of the code found in this blog: https://anthonygiretti.com/2021/08/27/asp-net-core-6-minimal-apis-two-reasons-why-i-cant-do-without-it-so-far/.
 
-- 
+- Grpc Streams (todo)
 
 # Some Links I found useful
 https://anthonygiretti.com/2021/08/27/asp-net-core-6-minimal-apis-two-reasons-why-i-cant-do-without-it-so-far/
