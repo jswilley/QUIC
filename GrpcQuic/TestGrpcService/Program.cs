@@ -35,7 +35,7 @@ namespace TestGrpcService1
                 options.IgnoreUnknownServices = true;
                 options.MaxReceiveMessageSize = 6291456; // 6 MB
                 options.MaxSendMessageSize = 6291456; // 6 MB
-
+                options.Interceptors.Add<ServerLoggerInterceptor>();
                 //options.ResponseCompressionLevel = CompressionLevel.Optimal; // compression level used if not set on the provider
                 // options.Interceptors.Add<ExceptionInterceptor>(); // Register custom ExceptionInterceptor interceptor
             });

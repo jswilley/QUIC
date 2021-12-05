@@ -6,6 +6,7 @@ import "google/protobuf/timestamp.proto";
 
 service WeatherForecasts { 
 	rpc GetWeather (WeatherForecast) returns (WeatherReply); 
+	  rpc GetWeatherStream (WeatherForecast) returns (stream WeatherReply);
 } 
 
 message WeatherReply { 

@@ -38,5 +38,21 @@ namespace TestGrpcService1
             return result;
            
         }
+
+        public override async Task SayHelloStream(HelloRequest request, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
+        {
+            var i = 0;
+            while (!context.CancellationToken.IsCancellationRequested)
+            {
+                var message = $"How are you {request.Name}? {++i}";
+                _logger.LogInformation($"Sending greeting {message}.");
+
+                await responseStream.WriteAsync(new HelloReply { Message = message });
+
+                // Gotta look busy
+                await Task.Delay(1000);
+            }
+        }
+
     }
 }

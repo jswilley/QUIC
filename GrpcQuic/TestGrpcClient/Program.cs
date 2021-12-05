@@ -1,4 +1,6 @@
 ﻿
+using Grpc.Core;
+using Grpc.Core.Interceptors;
 using Grpc.Net.Client;
 using System.Net;
 using TestGrpcService1;
@@ -31,8 +33,35 @@ namespace TestClientGrpc
             {
                 Console.WriteLine($"Date: {forecast.Date}  Tempature: {forecast.TemperatureC}  Summary: {forecast.Summary }");
             }
-                Console.WriteLine("Press any key to exit...");
+
+
+            var invoker = channel.Intercept(new ClientLoggerInterceptor());
+
+            var clientStream = new Greeter.GreeterClient(invoker);
+            await ServerStreamingCallExample(clientStream);
+
+            Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
+        }
+
+
+        private static async Task ServerStreamingCallExample(Greeter.GreeterClient client)
+        {
+            var cts = new CancellationTokenSource();
+            cts.CancelAfter(TimeSpan.FromSeconds(3.5));
+
+            using var call = client.SayHelloStream(new HelloRequest { Name = "GreeterClient" }, cancellationToken: cts.Token);
+            try
+            {
+                await foreach (var message in call.ResponseStream.ReadAllAsync())
+                {
+                    Console.WriteLine("Greeting: " + message.Message);
+                }
+            }
+            catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)
+            {
+                Console.WriteLine("Stream cancelled.");
+            }
         }
     }
 }
