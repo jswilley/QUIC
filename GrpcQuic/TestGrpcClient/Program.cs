@@ -2,7 +2,7 @@
 using Grpc.Net.Client;
 using System.Net;
 using TestGrpcService1;
-using TestGRPCShared;
+
 
 namespace TestClientGrpc
 {

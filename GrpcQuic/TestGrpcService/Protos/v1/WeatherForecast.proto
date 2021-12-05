@@ -1,7 +1,7 @@
 ﻿syntax = "proto3"; 
 // replace namespace with your own
 option csharp_namespace = "TestGrpcService1"; 
-package WeatherForecast; 
+package WeatherForecast.v1; 
 import "google/protobuf/timestamp.proto"; 
 
 service WeatherForecasts { 

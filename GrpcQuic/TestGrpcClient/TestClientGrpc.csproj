@@ -25,10 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\TestGrpcService\Protos\v1\greet.proto">
+    <Protobuf Include="..\TestGrpcService\Protos\v1\greet.proto" GrpcServices="Client">
       <Link>protos\greet.proto</Link>
     </Protobuf>
-    <Protobuf Include="..\TestGrpcService\Protos\v1\WeatherForecast.proto">
+    <Protobuf Include="..\TestGrpcService\Protos\v1\WeatherForecast.proto" GrpcServices="Client">
       <Link>protos\WeatherForecast.proto</Link>
     </Protobuf>
   </ItemGroup>

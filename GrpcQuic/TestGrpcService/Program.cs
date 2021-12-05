@@ -42,11 +42,13 @@ namespace TestGrpcService1
             builder.Services.AddGrpcReflection();
             builder.Services.AddSingleton<ProtoService>();
             builder.Services.AddSingleton<WeatherService>();
+            builder.Services.AddSingleton<GreeterService>();
 
             var app = builder.Build();
 
             app.MapGrpcReflectionService();
             app.MapGrpcService<WeatherService>();
+            app.MapGrpcService<GreeterService>();
 
             app.MapGet("/protos", (ProtoService protoService) =>
             {
@@ -75,15 +77,15 @@ namespace TestGrpcService1
             });
 
             // Custom response handling over ASP.NET Core middleware
-            app.Use(async (context, next) =>
-            {
-                if (!context.Request.Path.Value.Contains("protos/v"))
-                {
-                    context.Response.ContentType = "application/grpc";
-                    context.Response.Headers.Add("grpc-status", ((int)StatusCode.NotFound).ToString());
-                }
-                await next();
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //    if (!context.Request.Path.Value.Contains("protos/v"))
+            //    {
+            //        context.Response.ContentType = "application/grpc";
+            //        context.Response.Headers.Add("grpc-status", ((int)StatusCode.NotFound).ToString());
+            //    }
+            //    await next();
+            //});
 
             // Run the app
             app.Run();

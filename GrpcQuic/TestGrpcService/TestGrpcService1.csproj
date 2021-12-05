@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <Protobuf Include="Protos\v1\greet.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\v1\WeatherForecast.proto" />
+    <Protobuf Include="Protos\v1\WeatherForecast.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>

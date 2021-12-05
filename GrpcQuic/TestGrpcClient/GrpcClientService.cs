@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using TestGrpcService1;
-using TestGRPCShared;
+
 
 namespace TestClientGrpc
 {
@@ -29,11 +29,7 @@ namespace TestClientGrpc
             try
             {
                 var client = _clientFactory.CreateClient("grpc");
-
-             
-
-
-             
+                             
                 var baseUri = "https://localhost:7042";
                 var channel = GrpcChannel.ForAddress(baseUri);
                

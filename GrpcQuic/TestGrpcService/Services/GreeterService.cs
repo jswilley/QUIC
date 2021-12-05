@@ -22,5 +22,21 @@ namespace TestGrpcService1
                 Message = "Hello " + request.Name
             });
         }
+
+        public async  Task<HelloReply> SayHelloAsync(HelloRequest request, ServerCallContext context)
+        {
+           var result =  await Task.Run(async () =>
+            {
+                var reply =   new HelloReply
+                {
+                    Message = "Hello " + request.Name
+                };
+
+                return await Task.FromResult(reply);
+            });
+
+            return result;
+           
+        }
     }
 }
